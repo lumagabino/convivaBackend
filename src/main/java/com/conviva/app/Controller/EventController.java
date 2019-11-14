@@ -6,6 +6,8 @@ import com.conviva.app.Service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -19,20 +21,19 @@ public class EventController {
     @Autowired
     EventService eventService;
 
-    @GetMapping
-    public ResponseEntity getAllEvents() {
-        return ResponseEntity.ok(eventRepository.findAll());
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseBody
+    public List<EventModel> getAllEvents() {
+        return eventService.listAllEvents();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity getEvent(@PathVariable(value = "id") Long id) {
-        Optional<EventModel> foundEvent = eventRepository.findById(id);
-
-        if(foundEvent.isPresent()) {
-            return ResponseEntity.ok(foundEvent.get());
-        } else {
-            return ResponseEntity.badRequest().body("No events occurrence with specified id " + id + " found");
-        }
+    @RequestMapping(method = RequestMethod.GET, path = {"/{id}"})
+    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseBody
+    public EventModel getEventById(@PathVariable("id") long id)
+    {
+        return eventService.findSectorById(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -43,25 +44,22 @@ public class EventController {
     }
 
 
-
-    @PutMapping
-    public ResponseEntity updateEventOccurrence(@RequestParam(value = "eventName") String eventName, @RequestParam(value="id") Long id, @RequestParam(value="eventDesc") String eventDesc) {
-        Optional<EventModel> optionalEventOccurrence = eventRepository.findById(id);
-
-        if(!optionalEventOccurrence.isPresent()) {
-            return ResponseEntity.badRequest().body("No disease occurrence with specified id " + id + " found");
-        }
-
-        EventModel foundEventOccurrence = optionalEventOccurrence.get();
-        foundEventOccurrence.setName(eventName);
-        foundEventOccurrence.setDescription(eventDesc);
-
-        return ResponseEntity.ok(foundEventOccurrence);
+    @RequestMapping(method = RequestMethod.PUT, path = {"/{id}"})
+    @ResponseStatus(code = HttpStatus.OK, reason = "Event edited")
+    public void editEvent (@PathVariable("id") long id, @Valid @RequestBody EventModel event) {
+        eventService.editEvent(id, event);
     }
 
     @DeleteMapping
     public ResponseEntity removeEventOccurrence(@RequestParam(value = "id") Long id) {
         eventRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+    @ResponseStatus(code = HttpStatus.OK, reason = "Event deleted")
+    public void deleteEvent(@PathVariable("id") long id)
+    {
+        eventService.deleteEventById(id);
     }
 }

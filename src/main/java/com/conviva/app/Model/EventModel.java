@@ -1,11 +1,13 @@
 package com.conviva.app.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Gambiarra encontrada na internet.
 public class EventModel {
     @Id
     @Column(name = "id", unique = true, nullable = false)
