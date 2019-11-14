@@ -11,20 +11,27 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+// Lógica de negócio (o que a API vai fazer)
 @Service
 public class EventService {
     @Autowired
-    EventRepository eventRepository;
+    EventRepository eventRepository; // Connects to the database (repository)
+    // ARQUITETURA SPRINGBOOT: Controller <-> Service <-> Repository
+    // SÓ o Services deve conectar com o repositório
+    // O Controller só chama o Services, não mexe no Repository diretamente
 
-    public EventModel findSectorById(long id)
-{
-    return eventRepository.getOne(id);
-}
+    // Devolve o objeto EventModel (evento) a partir do seu id
+    public EventModel findSectorById(long id) {
+        return eventRepository.getOne(id);
+    }
 
+    // Find all events
     public List<EventModel> listAllEvents() {
         return eventRepository.findAll();
     }
 
+    // O @Transaction controla a transação entre o local e o banco de dados
+    // https://www.devmedia.com.br/conheca-o-spring-transactional-annotations/32472
     @Transactional
     public void createEvent(EventModel event) {
         if(event.getId() != 0){

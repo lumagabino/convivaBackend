@@ -6,12 +6,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.Date;
 
+// Modelo da tabela/classe/json a ser criada
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Gambiarra encontrada na internet.
 public class EventModel {
     @Id
     @Column(name = "id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Tem que instanciar id da coluna como identidade dela
     private long id;
 
     @Column(name = "name", length = 60, nullable = false)
@@ -30,7 +31,7 @@ public class EventModel {
     private String justification;
 
     @Column(name = "date", nullable = false)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss") // Define o padrão do Json pra não aceitar qualquer String como dado
     private Date date;
 
     @Column(name = "complaint", nullable = false)
@@ -55,6 +56,15 @@ public class EventModel {
         this.description = description;
     }
 
+    // get: pra pegar o valor da variável
+    // set: mudar o valor da variável
+    // As variáveis estão private, então tem que usar isso pra manipular elas nas outras classes
+    // Por alguma escrotisse de Java, é melhor fazer isso do que deixar a variável como public ou protected
+    // (i.e., deixar classes que herdam dela acessarem e mudarem essas variáveis)
+    // CorreçãO: é bom encapsular as coisas em orientação objeto pra uma classe não conseguir fuder com a outra
+    // (como  Swift é meio várzea porque é 30 paradigmas misturados, lá não tem tanto essa preocupação)
+    // Também quando estiver debugando dá pra saber o ponto que a variável mudou e deu treta
+    // As classes que herdam conseguem dar override nesses métodos pra customizar do jeito que for mais relevante
     public long getId() {
         return id;
     }
@@ -127,6 +137,7 @@ public class EventModel {
         this.adm = adm;
     }
 
+    // Como fica o objeto Event quando transformado em String pro json
     @Override
     public String toString() {
         return "Event {" +

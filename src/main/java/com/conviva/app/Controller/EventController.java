@@ -12,13 +12,11 @@ import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 
+// Roteamento
 @RestController
 @RequestMapping("/events")
 public class EventController {
-    @Autowired
-    private EventRepository eventRepository;
-
-    @Autowired
+    @Autowired // Manages Controller-Service-Repository relationship dependence
     EventService eventService;
 
     @RequestMapping(method = RequestMethod.GET)
@@ -52,7 +50,7 @@ public class EventController {
 
     @DeleteMapping
     public ResponseEntity removeEventOccurrence(@RequestParam(value = "id") Long id) {
-        eventRepository.deleteById(id);
+        eventService.deleteEventById(id);
         return ResponseEntity.noContent().build();
     }
 
