@@ -34,6 +34,9 @@ public class EventService {
     // https://www.devmedia.com.br/conheca-o-spring-transactional-annotations/32472
     @Transactional
     public void createEvent(EventModel event) {
+        // Se o id já existir, não podemos deixar gravar senão vai subescrever o método
+        // Se o id encontrado for diferente de zero é porque ele já existe
+        // então não devemos criar uma nova tupla para esse valor
         if(event.getId() != 0){
             throw new InvalidInputException("Invalid input id!");
         }
@@ -42,9 +45,15 @@ public class EventService {
 
     @Transactional
     public void deleteEventById(long id) {
+        // Optional<T> is a container object which may or may not contain a non-null value.
+        // If a value is present, isPresent() will return true and get() will return the value.
+        // This is a value-based class; use of identity-sensitive operations
+        // (including reference equality (==), identity hash code, or synchronization)
+        // on instances of Optional may have unpredictable results and should be avoided.
         Optional<EventModel> eventOptional = eventRepository.findById(id);
+
         if(!eventOptional.isPresent()) {
-            throw new InvalidInputException("This id do not exist, it can not be deleted");
+            throw new InvalidInputException("This id does not exist. It can not be deleted");
         }
         try {
             eventRepository.deleteById(id);
@@ -57,8 +66,9 @@ public class EventService {
         Optional<EventModel> eventOptional = eventRepository.findById(id);
 
         if(!eventOptional.isPresent()) {
-            throw new InvalidInputException("This id do not exist, it can not be edited");
+            throw new InvalidInputException("This id does not exist. It can not be edited");
         }
+        // set: muda valor da variável
         event.setId(id);
         eventRepository.save(event);
     }
