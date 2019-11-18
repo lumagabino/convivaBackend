@@ -1,6 +1,5 @@
 package com.conviva.app.Controller;
 
-import com.conviva.app.Repository.EventRepository;
 import com.conviva.app.Model.EventModel;
 import com.conviva.app.Service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 

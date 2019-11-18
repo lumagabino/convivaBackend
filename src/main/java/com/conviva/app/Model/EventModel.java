@@ -40,7 +40,6 @@ public class EventModel {
     @Column(name = "adm", length = 60, nullable = false)
     private String adm;
 
-
     public EventModel() {
 
     }

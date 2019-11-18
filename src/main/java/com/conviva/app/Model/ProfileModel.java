@@ -11,139 +11,84 @@ import java.util.Date;
 public class ProfileModel {
 
     @Id
-    @Column(name = "profileId", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Instancia id da coluna como identidade dela
-    private long profileId;
+    private long id;
 
     @Column(name = "name", length = 60, nullable = false)
     private String name;
-}
 
-//    @Column
-//    private String description;
-//
-//    @Column(name = "address", nullable = false)
-//    private String address;
-//
-//    @Column(name = "cust", nullable = false)
-//    private int cust;
-//
-//    @Column(name = "justif", nullable = false)
-//    private String justification;
-//
-//    @Column(name = "date", nullable = false)
-//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss") // Define o padrão do Json pra não aceitar qualquer String como dado
-//    private Date date;
-//
-//    @Column(name = "complaint", nullable = false)
-//    private int complaint;
-//
-//    @Column(name = "adm", length = 60, nullable = false)
-//    private String adm;
-//
-//
-//    public EventModel() {
-//
-//    }
-//
-//    public EventModel(String name, String description){
-//        this.name = name;
-//        this.description = description;
-//    }
-//
-//    public EventModel(long id, String name, String description){
-//        this.id = id;
-//        this.name = name;
-//        this.description = description;
-//    }
-//
-//    // get: pra pegar o valor da variável
-//    // set: mudar o valor da variável
-//    // As variáveis estão private, então tem que usar isso pra manipular elas nas outras classes
-//    // Por alguma escrotisse de Java, é melhor fazer isso do que deixar a variável como public ou protected
-//    // (i.e., deixar classes que herdam dela acessarem e mudarem essas variáveis)
-//    // CorreçãO: é bom encapsular as coisas em orientação objeto pra uma classe não conseguir fuder com a outra
-//    // (como  Swift é meio várzea porque é 30 paradigmas misturados, lá não tem tanto essa preocupação)
-//    // Também quando estiver debugando dá pra saber o ponto que a variável mudou e deu treta
-//    // As classes que herdam conseguem dar override nesses métodos pra customizar do jeito que for mais relevante
-//    public long getId() {
-//        return id;
-//    }
-//
-//    public void setId(long id) {
-//        this.id = id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
-//
-//    public String getAddress() {
-//        return address;
-//    }
-//
-//    public void setAddress(String address) {
-//        this.address = address;
-//    }
-//
-//    public int getCust() {
-//        return cust;
-//    }
-//
-//    public void setCust(int cust) {
-//        this.cust = cust;
-//    }
-//
-//    public String getJustification() {
-//        return justification;
-//    }
-//
-//    public void setJustification(String justification) {
-//        this.justification = justification;
-//    }
-//
-//    public Date getDate() {
-//        return date;
-//    }
-//
-//    public void setDate(Date date) {
-//        this.date = date;
-//    }
-//
-//    public int getComplaint() {
-//        return complaint;
-//    }
-//
-//    public void setComplaint(int complaint) {
-//        this.complaint = complaint;
-//    }
-//
-//    public String getAdm() {
-//        return adm;
-//    }
-//
-//    public void setAdm(String adm) {
-//        this.adm = adm;
-//    }
-//
-//    // Como fica o objeto Event quando transformado em String pro json
-//    @Override
-//    public String toString() {
-//        return "Event {" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", description='" + description + '\'' +
-//                '}';
-//    }
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "contact", nullable = false)
+    private String contact;
+
+    @Column(name = "address", nullable = false)
+    private String address;
+
+    @Column(name = "description", nullable = false)
+    private String description;
+
+    @Column(name = "latitude", nullable = false)
+    private String latitude;
+
+    @Column(name = "longitude", nullable = false)
+    private String longitude;
+
+    @Column(name = "radius", nullable = false)
+    private Double radius;
+
+    public ProfileModel(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public ProfileModel(long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getPassword() { return password; }
+    public void  setPassword(String password) { this.password = password; }
+
+    public String getContact() { return contact; }
+    public void setContact(String contact) { this.contact = contact; }
+
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public String getLatitude() { return latitude; }
+    public void setLatitude(String latitude) { this.latitude = latitude; }
+
+    public String  getLongitude() { return longitude; }
+    public void setLongitude(String longitude) { this.longitude = longitude; }
+
+    public Double getRadius() { return radius; }
+    public void setRadius() { this.radius = radius; }
+
+    @Override
+    public String toString() {
+        return "Profile {" +
+                "id=" + id +
+                "name='" + name + '\'' +
+                "description='" + description + '\'' +
+                '}';
+    }
+}
