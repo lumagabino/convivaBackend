@@ -38,7 +38,7 @@ public class EventModel {
     private int complaint;
 
     @Column(name = "adm", length = 60, nullable = false)
-    private String adm;
+    private long adm;
 
     @Column(name = "latitude", nullable = false)
     private Double latitude;
@@ -133,11 +133,11 @@ public class EventModel {
         this.complaint = complaint;
     }
 
-    public String getAdm() {
+    public long getAdm() {
         return adm;
     }
 
-    public void setAdm(String adm) {
+    public void setAdm(long adm) {
         this.adm = adm;
     }
 
