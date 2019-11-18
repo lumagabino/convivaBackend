@@ -46,11 +46,12 @@ public class ProfileService {
         }
     }
 
+    // Requires you to pass the whole json again, not just the category to be changed
     public void editProfile(long id, ProfileModel profile) {
         Optional<ProfileModel> profileOptional = profileRepository.findById(id);
 
         if (!profileOptional.isPresent()) {
-            throw new InvalidInputException("This id does not exist. It can not be deleted");
+            throw new InvalidInputException("This id does not exist. It can not be edited");
         }
         profile.setId(id);
         profileRepository.save(profile);

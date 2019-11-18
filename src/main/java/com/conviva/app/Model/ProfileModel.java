@@ -34,24 +34,30 @@ public class ProfileModel {
     private String description;
 
     @Column(name = "latitude", nullable = false)
-    private String latitude;
+    private Double latitude;
 
     @Column(name = "longitude", nullable = false)
-    private String longitude;
+    private Double longitude;
 
     @Column(name = "radius", nullable = false)
     private Double radius;
 
-    public ProfileModel(String name, String description) {
-        this.name = name;
-        this.description = description;
+    // This has to exist as a default class constructor
+    // Since we customized two other inits for this class, the default is thrown away
+    // Therefore we must instantiate it again
+    public ProfileModel() {
     }
 
-    public ProfileModel(long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
+//    public ProfileModel(String name, String description) {
+//        this.name = name;
+//        this.description = description;
+//    }
+//
+//    public ProfileModel(long id, String name, String description) {
+//        this.id = id;
+//        this.name = name;
+//        this.description = description;
+//    }
 
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
@@ -74,21 +80,28 @@ public class ProfileModel {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public String getLatitude() { return latitude; }
-    public void setLatitude(String latitude) { this.latitude = latitude; }
+    public Double getLatitude() { return latitude; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
 
-    public String  getLongitude() { return longitude; }
-    public void setLongitude(String longitude) { this.longitude = longitude; }
+    public Double  getLongitude() { return longitude; }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
 
     public Double getRadius() { return radius; }
     public void setRadius() { this.radius = radius; }
 
     @Override
     public String toString() {
-        return "Profile {" +
+        return "ProfileModel{" +
                 "id=" + id +
-                "name='" + name + '\'' +
-                "description='" + description + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", contact='" + contact + '\'' +
+                ", address='" + address + '\'' +
+                ", description='" + description + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", radius=" + radius +
                 '}';
     }
 }

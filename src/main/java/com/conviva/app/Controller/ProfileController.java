@@ -3,7 +3,6 @@ package com.conviva.app.Controller;
 import com.conviva.app.Model.ProfileModel;
 import com.conviva.app.Service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,20 +39,13 @@ public class ProfileController {
     }
 
     // PUT
-    @RequestMapping(method = RequestMethod.GET, path = {"/{id}"})
+    @RequestMapping(method = RequestMethod.PUT, path = {"/{id}"})
     @ResponseStatus(code = HttpStatus.OK, reason = "Profile edited")
     public void editProfile (@PathVariable("id") long id, @Valid @RequestBody ProfileModel profile) {
         profileService.editProfile(id, profile);
     }
 
-    // DELETE
-    @DeleteMapping
-    public ResponseEntity removeProfileOccurence(@RequestParam(value = "id") Long id) {
-        profileService.deleteProfileById(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @RequestMapping(method = RequestMethod.GET, path = {"/{id}"})
+    @RequestMapping(method = RequestMethod.DELETE, path = {"/{id}"})
     @ResponseStatus(code = HttpStatus.OK, reason = "Profile deleted")
     public void deleteProfile(@PathVariable("id") long id) {
         profileService.deleteProfileById(id);

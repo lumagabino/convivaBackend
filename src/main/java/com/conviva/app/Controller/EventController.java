@@ -3,7 +3,6 @@ package com.conviva.app.Controller;
 import com.conviva.app.Model.EventModel;
 import com.conviva.app.Service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,13 +47,6 @@ public class EventController {
     @ResponseStatus(code = HttpStatus.OK, reason = "Event edited")
     public void editEvent (@PathVariable("id") long id, @Valid @RequestBody EventModel event) {
         eventService.editEvent(id, event);
-    }
-
-    // Não sei, perguntar. Aparentemente deleta ocorrência de  evento
-    @DeleteMapping
-    public ResponseEntity removeEventOccurrence(@RequestParam(value = "id") Long id) {
-        eventService.deleteEventById(id);
-        return ResponseEntity.noContent().build();
     }
 
     // DELETE (by id)

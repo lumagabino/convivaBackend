@@ -24,10 +24,10 @@ public class EventModel {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "cust", nullable = false)
-    private int cust;
+    @Column(name = "cost", nullable = false)
+    private int cost;
 
-    @Column(name = "justif", nullable = false)
+    @Column(name = "justification", nullable = false)
     private String justification;
 
     @Column(name = "date", nullable = false)
@@ -40,20 +40,25 @@ public class EventModel {
     @Column(name = "adm", length = 60, nullable = false)
     private String adm;
 
+    @Column(name = "latitude", nullable = false)
+    private Double latitude;
+
+    @Column(name = "longitude", nullable = false)
+    private Double longitude;
+
     public EventModel() {
-
     }
 
-    public EventModel(String name, String description){
-        this.name = name;
-        this.description = description;
-    }
-
-    public EventModel(long id, String name, String description){
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
+//    public EventModel(String name, String description){
+//        this.name = name;
+//        this.description = description;
+//    }
+//
+//    public EventModel(long id, String name, String description){
+//        this.id = id;
+//        this.name = name;
+//        this.description = description;
+//    }
 
     // get: pra pegar o valor da variável
     // set: mudar o valor da variável
@@ -96,12 +101,12 @@ public class EventModel {
         this.address = address;
     }
 
-    public int getCust() {
-        return cust;
+    public int getCost() {
+        return cost;
     }
 
-    public void setCust(int cust) {
-        this.cust = cust;
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     public String getJustification() {
@@ -136,14 +141,27 @@ public class EventModel {
         this.adm = adm;
     }
 
+    public Double getLatitude() { return latitude; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
+
+    public Double  getLongitude() { return longitude; }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
+
     // Como fica o objeto Event quando transformado em String pro json
     @Override
     public String toString() {
-        return "Event {" +
+        return "EventModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", address='" + address + '\'' +
+                ", cost=" + cost +
+                ", justification='" + justification + '\'' +
+                ", date=" + date +
+                ", complaint=" + complaint +
+                ", adm='" + adm + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 '}';
     }
-
 }
