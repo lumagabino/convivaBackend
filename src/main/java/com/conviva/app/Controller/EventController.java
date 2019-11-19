@@ -9,15 +9,13 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 
-// Roteamento: ponte entre Services e protocolo REST
 @RestController
 @RequestMapping("/events")
 public class EventController {
-    @Autowired // Manages Controller-Service-Repository relationship dependence
+    @Autowired
     EventService eventService;
 
-    // GET (pull event(s) from  database) com  dois tipos de entradas possíveis
-    // 1) Sem passar nenhum parâmetro pega todos os eventos
+    // GET all events
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
@@ -25,7 +23,7 @@ public class EventController {
         return eventService.listAllEvents();
     }
 
-    // 2) passando o id como parâmetro ele pega só o perfil com aquele id
+    // GET event by id
     @RequestMapping(method = RequestMethod.GET, path = {"/{id}"})
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
@@ -46,10 +44,9 @@ public class EventController {
     @RequestMapping(method = RequestMethod.PUT, path = {"/{id}"})
     @ResponseStatus(code = HttpStatus.OK, reason = "Event edited")
     public void editEvent (@PathVariable("id") long id, @Valid @RequestBody EventModel event) {
-        eventService.editEvent(id, event);
-    }
+        eventService.editEvent(id, event); }
 
-    // DELETE (by id)
+    // DELETE event by id
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
     @ResponseStatus(code = HttpStatus.OK, reason = "Event deleted")
     public void deleteEvent(@PathVariable("id") long id)

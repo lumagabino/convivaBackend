@@ -42,9 +42,9 @@ public class ProfileController {
     @RequestMapping(method = RequestMethod.PUT, path = {"/{id}"})
     @ResponseStatus(code = HttpStatus.OK, reason = "Profile edited")
     public void editProfile (@PathVariable("id") long id, @Valid @RequestBody ProfileModel profile) {
-        profileService.editProfile(id, profile);
-    }
+        profileService.editProfile(id, profile); }
 
+    // DELETE
     @RequestMapping(method = RequestMethod.DELETE, path = {"/{id}"})
     @ResponseStatus(code = HttpStatus.OK, reason = "Profile deleted")
     public void deleteProfile(@PathVariable("id") long id) {

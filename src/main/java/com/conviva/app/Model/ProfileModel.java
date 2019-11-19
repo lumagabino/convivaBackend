@@ -7,12 +7,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Gambiarra encontrada na internet
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ProfileModel {
 
     @Id
     @Column(name = "id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Instancia id da coluna como identidade dela
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // instantiates id as column identity
     private long id;
 
     @Column(name = "name", length = 60, nullable = false)
@@ -42,23 +42,11 @@ public class ProfileModel {
     @Column(name = "radius", nullable = false)
     private Double radius;
 
-    // This has to exist as a default class constructor
-    // Since we customized two other inits for this class, the default is thrown away
-    // Therefore we must instantiate it again
+    // Instantiates default class constructor so that it is not discarded in case we add customized class initializers
     public ProfileModel() {
     }
 
-//    public ProfileModel(String name, String description) {
-//        this.name = name;
-//        this.description = description;
-//    }
-//
-//    public ProfileModel(long id, String name, String description) {
-//        this.id = id;
-//        this.name = name;
-//        this.description = description;
-//    }
-
+    // Get and set methods
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 

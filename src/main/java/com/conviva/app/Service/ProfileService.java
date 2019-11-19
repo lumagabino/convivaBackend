@@ -16,32 +16,37 @@ public class ProfileService {
     @Autowired
     ProfileRepository profileRepository;
 
+    // Find profile through id
     public ProfileModel findSectorById(long id) {
         return profileRepository.getOne(id);
     }
 
+    // Find all profiles
     public List<ProfileModel> listAllProfiles() {
         return profileRepository.findAll();
     }
 
+    // Create profile
     @Transactional
     public void createProfile(ProfileModel profile) {
-        if (profile.getId() != 0) {
+        if (profile.getId() != 0) { // check if profile already exists so the new one doesn't override it
             throw new InvalidInputException("Invalid input id!");
         }
         profileRepository.save(profile);
     }
 
+    // Edit profile
     @Transactional
     public void deleteProfileById(long id) {
         Optional<ProfileModel> profileOptional = profileRepository.findById(id);
 
-        if (!profileOptional.isPresent()) {
+        if (!profileOptional.isPresent()) { // check if profile exists in repository
             throw new InvalidInputException("This id does not exist. It can not be deleted");
         }
         try {
             profileRepository.deleteById(id);
-        } catch (DataIntegrityViolationException exception) {
+        }
+        catch (DataIntegrityViolationException exception) {
             System.out.println("Profile could not be deleted because it will affect Data Integrity in DB.");
         }
     }
@@ -50,7 +55,7 @@ public class ProfileService {
     public void editProfile(long id, ProfileModel profile) {
         Optional<ProfileModel> profileOptional = profileRepository.findById(id);
 
-        if (!profileOptional.isPresent()) {
+        if (!profileOptional.isPresent()) { // check if profile exists in repository
             throw new InvalidInputException("This id does not exist. It can not be edited");
         }
         profile.setId(id);

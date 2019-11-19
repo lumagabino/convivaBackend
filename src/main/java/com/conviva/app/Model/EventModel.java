@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.Date;
 
-// Modelo da tabela/classe/json a ser criada
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Gambiarra encontrada na internet.
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class EventModel {
+
     @Id
     @Column(name = "id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Tem que instanciar id da coluna como identidade dela
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // instantiates id as column identity
     private long id;
 
     @Column(name = "name", length = 60, nullable = false)
@@ -31,7 +31,7 @@ public class EventModel {
     private String justification;
 
     @Column(name = "date", nullable = false)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss") // Define o padrão do Json pra não aceitar qualquer String como dado
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss") // defines the json pattern so that it only accepts date strings
     private Date date;
 
     @Column(name = "complaint", nullable = false)
@@ -46,33 +46,14 @@ public class EventModel {
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 
+    // Instantiates default class constructor so that it is not discarded in case we add customized class initializers
     public EventModel() {
     }
 
-//    public EventModel(String name, String description){
-//        this.name = name;
-//        this.description = description;
-//    }
-//
-//    public EventModel(long id, String name, String description){
-//        this.id = id;
-//        this.name = name;
-//        this.description = description;
-//    }
-
-    // get: pra pegar o valor da variável
-    // set: mudar o valor da variável
-    // As variáveis estão private, então tem que usar isso pra manipular elas nas outras classes
-    // Por alguma escrotisse de Java, é melhor fazer isso do que deixar a variável como public ou protected
-    // (i.e., deixar classes que herdam dela acessarem e mudarem essas variáveis)
-    // CorreçãO: é bom encapsular as coisas em orientação objeto pra uma classe não conseguir fuder com a outra
-    // (como  Swift é meio várzea porque é 30 paradigmas misturados, lá não tem tanto essa preocupação)
-    // Também quando estiver debugando dá pra saber o ponto que a variável mudou e deu treta
-    // As classes que herdam conseguem dar override nesses métodos pra customizar do jeito que for mais relevante
+    // Get and set methods
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -80,7 +61,6 @@ public class EventModel {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -88,7 +68,6 @@ public class EventModel {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -96,7 +75,6 @@ public class EventModel {
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
@@ -104,7 +82,6 @@ public class EventModel {
     public int getCost() {
         return cost;
     }
-
     public void setCost(int cost) {
         this.cost = cost;
     }
@@ -112,7 +89,6 @@ public class EventModel {
     public String getJustification() {
         return justification;
     }
-
     public void setJustification(String justification) {
         this.justification = justification;
     }
@@ -120,7 +96,6 @@ public class EventModel {
     public Date getDate() {
         return date;
     }
-
     public void setDate(Date date) {
         this.date = date;
     }
@@ -128,7 +103,6 @@ public class EventModel {
     public int getComplaint() {
         return complaint;
     }
-
     public void setComplaint(int complaint) {
         this.complaint = complaint;
     }
@@ -136,7 +110,6 @@ public class EventModel {
     public long getAdm() {
         return adm;
     }
-
     public void setAdm(long adm) {
         this.adm = adm;
     }
@@ -147,7 +120,6 @@ public class EventModel {
     public Double  getLongitude() { return longitude; }
     public void setLongitude(Double longitude) { this.longitude = longitude; }
 
-    // Como fica o objeto Event quando transformado em String pro json
     @Override
     public String toString() {
         return "EventModel{" +
@@ -155,12 +127,12 @@ public class EventModel {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", address='" + address + '\'' +
-                ", cost=" + cost +
+                ", cost=" + cost + '\'' +
                 ", justification='" + justification + '\'' +
-                ", date=" + date +
-                ", complaint=" + complaint +
+                ", date=" + date + '\'' +
+                ", complaint=" + complaint + '\'' +
                 ", adm='" + adm + '\'' +
-                ", latitude=" + latitude +
+                ", latitude=" + latitude + '\'' +
                 ", longitude=" + longitude +
                 '}';
     }
