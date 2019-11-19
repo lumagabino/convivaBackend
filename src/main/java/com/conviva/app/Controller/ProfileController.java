@@ -45,6 +45,7 @@ public class ProfileController {
         profileService.editProfile(id, profile);
     }
 
+    //DELETE
     @RequestMapping(method = RequestMethod.DELETE, path = {"/{id}"})
     @ResponseStatus(code = HttpStatus.OK, reason = "Profile deleted")
     public void deleteProfile(@PathVariable("id") long id) {

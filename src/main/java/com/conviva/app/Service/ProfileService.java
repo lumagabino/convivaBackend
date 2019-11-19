@@ -5,6 +5,7 @@ import com.conviva.app.Model.ProfileModel;
 import com.conviva.app.Repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,6 +16,10 @@ import java.util.Optional;
 public class ProfileService {
     @Autowired
     ProfileRepository profileRepository;
+
+   @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     public ProfileModel findSectorById(long id) {
         return profileRepository.getOne(id);
@@ -29,8 +34,24 @@ public class ProfileService {
         if (profile.getId() != 0) {
             throw new InvalidInputException("Invalid input id!");
         }
+        System.out.println("Encoding password");
+        //profile.setPassword(passwordEncoder.encode(profile.getPassword()));
+       // profile.setPassword(profile.getPassword());
         profileRepository.save(profile);
     }
+
+//    @Transactional
+//    public void createUser(ProfileModel user) {
+//        if (user.getId() != 0) {
+//            throw new InvalidInputException("Invalid input id!");
+//        }
+//
+//        // before proceeding encode the password and clear the access token as well
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//
+//        // save parameter
+//        profileRepository.save(user);
+//    }
 
     @Transactional
     public void deleteProfileById(long id) {
