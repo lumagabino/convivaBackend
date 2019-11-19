@@ -5,6 +5,7 @@ import com.conviva.app.Model.EventModel;
 import com.conviva.app.Repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,9 +23,7 @@ public class EventService {
     }
 
     // Find all events
-    public List<EventModel> listAllEvents() {
-        return eventRepository.findAll();
-    }
+    public List<EventModel> listAllEvents() { return eventRepository.findAll(Sort.by("date")); }
 
     // Create event
     @Transactional
