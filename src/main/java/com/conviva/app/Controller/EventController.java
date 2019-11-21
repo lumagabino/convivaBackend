@@ -32,6 +32,14 @@ public class EventController {
         return eventService.findSectorById(id);
     }
 
+    // GET events by region
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseBody
+    public List<EventModel> getEventsByRegion() {
+        return eventService.listEventsByRegion();
+    }
+
     // POST (create event)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(code = HttpStatus.OK, reason = "Event created")

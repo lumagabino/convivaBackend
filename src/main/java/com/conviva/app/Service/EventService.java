@@ -6,6 +6,7 @@ import com.conviva.app.Repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+// @NamedQuery(name = "Person.findByName", query = "SELECT p FROM Person p WHERE LOWER(p.lastName) = LOWER(?1)")
 public class EventService {
     @Autowired
     EventRepository eventRepository; // connects to the repository
@@ -24,6 +26,18 @@ public class EventService {
 
     // Find all events
     public List<EventModel> listAllEvents() { return eventRepository.findAll(Sort.by("date")); }
+
+    // Find events by region
+    @Query("SELECT *" +
+            " FROM event_model" +
+            " WHERE ((point(latitude, longitude) <@> point(20, 31)::point) * 1.61) < 150" +
+            " ORDER BY date")
+    public List<EventModel> listEventsByRegion();
+
+//    SELECT ((point(latitude, longitude) <@> point(20, 31)::point) * 1.61) as distance, *
+//    FROM event_model
+//    WHERE ((point(latitude, longitude) <@> point(20, 31)::point) * 1.61) < 150
+//    ORDER BY distance; "
 
     // Create event
     @Transactional
