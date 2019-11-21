@@ -92,4 +92,5 @@ public class ProfileModel {
                 ", radius=" + radius +
                 '}';
     }
+
 }

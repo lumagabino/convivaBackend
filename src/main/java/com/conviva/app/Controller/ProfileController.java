@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 
@@ -23,12 +24,12 @@ public class ProfileController {
         return profileService.listAllProfiles();
     }
 
-    // GET profile by id
-    @RequestMapping(method = RequestMethod.GET, path = {"/{id}"})
+    // GET profile by email
+    @RequestMapping(method = RequestMethod.GET, path = {"/{email}"})
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
-    public ProfileModel getProfileById(@PathVariable("id") long id) {
-        return profileService.findSectorById(id);
+    public Optional<ProfileModel> getProfileByEmail(@PathVariable("email") String email) {
+        return profileService.findProfileByEmail(email);
     }
 
     // POST
@@ -36,6 +37,13 @@ public class ProfileController {
     @ResponseStatus(code = HttpStatus.OK, reason = "Profile created")
     public void createProfile(@Valid @RequestBody ProfileModel profile) {
         profileService.createProfile(profile);
+    }
+
+    //GET - Login method
+    @RequestMapping(method = RequestMethod.GET, path = {"/{email}/{password}"})
+    @ResponseStatus(code = HttpStatus.OK, reason = "User logged")
+    public void login(@PathVariable("email") String email, @PathVariable("password") String password) {
+        profileService.login(email, password);
     }
 
     // PUT

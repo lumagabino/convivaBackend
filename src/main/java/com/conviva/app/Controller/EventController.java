@@ -29,7 +29,7 @@ public class EventController {
     @ResponseBody
     public EventModel getEventById(@PathVariable("id") long id)
     {
-        return eventService.findSectorById(id);
+        return eventService.findEventById(id);
     }
 
     // POST (create event)

@@ -5,7 +5,9 @@ import com.conviva.app.Model.ProfileModel;
 import com.conviva.app.Repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -16,9 +18,15 @@ public class ProfileService {
     @Autowired
     ProfileRepository profileRepository;
 
-    // Find profile through id
-    public ProfileModel findSectorById(long id) {
-        return profileRepository.getOne(id);
+    // Find profile through email
+    public Optional<ProfileModel> findProfileByEmail(String email) {
+        Optional<ProfileModel> profileOptional = profileRepository.findOneByEmail(email);
+        if (profileOptional.isEmpty()){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Email not found"
+            );
+        }
+        return profileOptional;
     }
 
     // Find all profiles
@@ -29,10 +37,33 @@ public class ProfileService {
     // Create profile
     @Transactional
     public void createProfile(ProfileModel profile) {
-        if (profile.getId() != 0) { // check if profile already exists so the new one doesn't override it
+        String email = profile.getEmail();
+        Optional<ProfileModel> profileOptional = profileRepository.findOneByEmail(email);
+
+        if (profile.getId() != 0) { //check if profile already exists so the new one doesn't override it
             throw new InvalidInputException("Invalid input id!");
         }
+        if (profileOptional.isPresent()){ //check if email is already registered
+            throw new InvalidInputException("Invalid input email!");
+        }
+
         profileRepository.save(profile);
+    }
+
+    // Login
+    @Transactional
+    public void login(String email, String password) {
+        Optional<ProfileModel> profileOptional = profileRepository.findOneByEmail(email);
+
+        if (profileOptional != null){
+            if (!profileOptional.isPresent()){ //check if email is already registered
+                throw new InvalidInputException("Invalid input email!");
+            }
+            if (!profileOptional.get().getPassword().equals(password)){ //check if the password is valid
+                throw new InvalidInputException("Invalid input password!");
+            }
+        }
+
     }
 
     // Edit profile

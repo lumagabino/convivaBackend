@@ -17,7 +17,7 @@ public class EventService {
     EventRepository eventRepository; // connects to the repository
 
     // Find event through id
-    public EventModel findSectorById(long id) {
+    public EventModel findEventById(long id) {
         return eventRepository.getOne(id);
     }
 
