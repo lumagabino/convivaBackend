@@ -15,13 +15,13 @@ public class EventController {
     @Autowired
     EventService eventService;
 
-    // GET all events
-    @RequestMapping(method = RequestMethod.GET)
-    @ResponseStatus(code = HttpStatus.OK)
-    @ResponseBody
-    public List<EventModel> getAllEvents() {
-        return eventService.listAllEvents();
-    }
+//    // GET all events
+//    @RequestMapping(method = RequestMethod.GET)
+//    @ResponseStatus(code = HttpStatus.OK)
+//    @ResponseBody
+//    public List<EventModel> getAllEvents() {
+//        return eventService.listAllEvents();
+//    }
 
     // GET event by id
     @RequestMapping(method = RequestMethod.GET, path = {"/{id}"})
@@ -32,12 +32,24 @@ public class EventController {
         return eventService.findSectorById(id);
     }
 
-    // GET events by region
+    // GET events by region WITHOUT parameters
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
-    public List<EventModel> getEventsByRegion() {
-        return eventService.listEventsByRegion();
+    public List<EventModel> getEventsByFixedRegion() {
+        return eventService.findEventByRegion(30.0,20.0,500.0);
+    }
+
+    // GET events by region
+    @RequestMapping( value = "/events/region",
+            params = {"longitude", "latitude", "radius"},
+            method = RequestMethod.GET)
+    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseBody
+    public List<EventModel> getEventsByRegion(@RequestParam("longitude") Double longitude,
+                                              @RequestParam("latitude") Double latitude,
+                                              @RequestParam("radius") Double radius) {
+        return eventService.findEventByRegion(longitude, latitude, radius);
     }
 
     // POST (create event)
