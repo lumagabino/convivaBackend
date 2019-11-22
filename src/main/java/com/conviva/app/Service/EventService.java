@@ -25,11 +25,10 @@ public class EventService {
     // Find all events
     public List<EventModel> listAllEvents() { return eventRepository.findAll(Sort.by("date")); }
 
-
+    // Find events in defined region
     public List<EventModel> findEventByRegion(Double longitude, Double latitude, Double radius) {
         return eventRepository.findEventByRegion(longitude, latitude, radius);
     }
-
 
     // Create event
     @Transactional
