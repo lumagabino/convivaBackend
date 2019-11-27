@@ -9,6 +9,23 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<EventModel, Long> {
 
+    @Query(value = "SELECT * FROM findEventsInRegion(:profileLongitude , :profileLatitude, :profileRadius) ORDER BY date;",
+            nativeQuery = true)
+    public List<EventModel> findEventByRegion(@Param("profileLongitude") Double longitude,
+                                              @Param("profileLatitude") Double latitude,
+                                              @Param("profileRadius") Double radius);
+
+    @Query(value = "SELECT * FROM event_model WHERE adm = :adm",
+            nativeQuery = true)
+    public List<EventModel> findEventsWithAdm(@Param("adm") String adm);
+
+}
+
+
+// Tentei colocar o  código completo da função na @Query, mas não deu certo
+// Logo, o banco de dados precisa ter a função abaixo gravada
+// findEventsInRegion(profileLongitude double precision, profileLatitude double precision, profileRadius double precision)
+//
 //    String queryFunction = "create extension if not exists cube; " +
 //            "create extension if not exists earthdistance; " +
 //            "\n" +
@@ -35,15 +52,3 @@ public interface EventRepository extends JpaRepository<EventModel, Long> {
 //            "\t WHERE ((point(LONGITUDE, LATITUDE) <@> point($1, $2)) * 1.61) < $3 \n" +
 //            "\t $$ \n" +
 //            "LANGUAGE SQL; ";
-
-    @Query(value = "SELECT * FROM findEventsInRegion(:profileLongitude , :profileLatitude, :profileRadius) ORDER BY date;",
-            nativeQuery = true)
-    public List<EventModel> findEventByRegion(@Param("profileLongitude") Double longitude,
-                                              @Param("profileLatitude") Double latitude,
-                                              @Param("profileRadius") Double radius);
-
-    @Query(value = "SELECT * FROM event_model WHERE adm = :adm",
-            nativeQuery = true)
-    public List<EventModel> findEventsWithAdm(@Param("adm") String adm);
-
-}
