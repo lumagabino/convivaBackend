@@ -20,7 +20,7 @@ public class EventController {
             method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
-    public List<EventModel> getEventsFromAdm(@RequestParam("adm") String adm) {
+    public List<EventModel> getEventsFromAdm(@RequestParam("adm") long adm) {
         return eventService.findEventsFromAdm(adm);
     }
 
@@ -37,7 +37,7 @@ public class EventController {
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
     public EventModel getEventById(@PathVariable("id") long id) {
-        return eventService.findSectorById(id);
+        return eventService.findEventById(id);
     }
 
 //    // GET events by region WITHOUT parameters

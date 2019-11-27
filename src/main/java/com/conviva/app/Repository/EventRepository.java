@@ -17,10 +17,8 @@ public interface EventRepository extends JpaRepository<EventModel, Long> {
 
     @Query(value = "SELECT * FROM event_model WHERE adm = :adm",
             nativeQuery = true)
-    public List<EventModel> findEventsWithAdm(@Param("adm") String adm);
-
+    public List<EventModel> findEventsWithAdm(@Param("adm") long adm);
 }
-
 
 // Tentei colocar o  código completo da função na @Query, mas não deu certo
 // Logo, o banco de dados precisa ter a função abaixo gravada
@@ -35,7 +33,7 @@ public interface EventRepository extends JpaRepository<EventModel, Long> {
 //            "\n" +
 //            "RETURNS TABLE (ID bigint, \n" +
 //            "\t\t\t  ADDRESS text, \n" +
-//            "\t\t\t  ADM text, \n" +
+//            "\t\t\t  ADM bigint, \n" +
 //            "\t\t\t  COMPLAINT integer, \n" +
 //            "\t\t\t  COST integer, \n" +
 //            "\t\t\t  DATE timestamp without time zone, \n" +
@@ -52,3 +50,7 @@ public interface EventRepository extends JpaRepository<EventModel, Long> {
 //            "\t WHERE ((point(LONGITUDE, LATITUDE) <@> point($1, $2)) * 1.61) < $3 \n" +
 //            "\t $$ \n" +
 //            "LANGUAGE SQL; ";
+//
+//
+// To test on SQL, run
+// SELECT * FROM findEventsInRegion(30, 20, 1000) ORDER BY date;

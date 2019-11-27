@@ -18,7 +18,7 @@ public class EventService {
     EventRepository eventRepository; // connects to the repository
 
     // find all events of one adm
-    public List<EventModel> findEventsFromAdm(String adm) {
+    public List<EventModel> findEventsFromAdm(long adm) {
         return eventRepository.findEventsWithAdm(adm);
     }
 
