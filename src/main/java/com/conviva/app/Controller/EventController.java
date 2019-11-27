@@ -15,6 +15,15 @@ public class EventController {
     @Autowired
     EventService eventService;
 
+    // GET all events created by the same adm
+    @RequestMapping( path = "/from_adm",
+            method = RequestMethod.GET)
+    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseBody
+    public List<EventModel> getEventsFromAdm(@RequestParam("adm") String adm) {
+        return eventService.findEventsFromAdm(adm);
+    }
+
     // GET all events
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)

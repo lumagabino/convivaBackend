@@ -18,8 +18,8 @@ public class ItemService {
     ItemRepository itemRepository;
 
     // find all items from one eventId
-    public List<ItemModel> findItemsFromEvent(long eventId) {
-        return itemRepository.findItemsWithEventId(eventId);
+    public List<ItemModel> findItemsFromEvent(long event_id) {
+        return itemRepository.findItemsWithEventId(event_id);
     }
 
     // Find item through id
@@ -28,7 +28,7 @@ public class ItemService {
     }
 
     // Find all items
-    public List<ItemModel> listAllItems() { return itemRepository.findAll(Sort.by("eventId")); }
+    public List<ItemModel> listAllItems() { return itemRepository.findAll(Sort.by("event_id")); }
 
     // Create item
     @Transactional

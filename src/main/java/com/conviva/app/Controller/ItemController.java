@@ -36,8 +36,8 @@ public class ItemController {
             method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
-    public List<ItemModel> getItemsFromEvent(@RequestParam("eventId") String eventId) {
-        return itemService.findItemsFromEvent(Long.parseLong(eventId));
+    public List<ItemModel> getItemsFromEvent(@RequestParam("event_id") String event_id) {
+        return itemService.findItemsFromEvent(Long.parseLong(event_id));
     }
 
     // POST (create item)

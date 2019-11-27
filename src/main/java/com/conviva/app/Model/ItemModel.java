@@ -1,18 +1,11 @@
 package com.conviva.app.Model;
 
-//    var name : String
-//    var amount : Int
-//
-//    var type : ItemType
-//
-//    var event : Event
-//    var helper : [(person : Profile, amount : Int)]?
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ItemModel {
     @Id
     @Column(name = "id", unique = true, nullable = false)
@@ -22,8 +15,8 @@ public class ItemModel {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "eventId", length = 60, nullable = false)
-    private long eventId;
+    @Column(name = "event_id", length = 60, nullable = false)
+    private long event_id;
 
     @Column(name = "type", nullable = false)
     private String type;
@@ -45,8 +38,8 @@ public class ItemModel {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public long getEventId() { return eventId; }
-    public void setEventId(long eventId) { this.eventId = eventId; }
+    public long getEventId() { return event_id; }
+    public void setEventId(long event_id) { this.event_id = event_id; }
 
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
@@ -62,7 +55,7 @@ public class ItemModel {
         return "ItemModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", eventId=" + eventId +
+                ", event_id=" + event_id +
                 ", type='" + type + '\'' +
                 ", quantity=" + quantity +
                 ", comment='" + comment + '\'' +

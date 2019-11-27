@@ -42,4 +42,8 @@ public interface EventRepository extends JpaRepository<EventModel, Long> {
                                               @Param("profileLatitude") Double latitude,
                                               @Param("profileRadius") Double radius);
 
+    @Query(value = "SELECT * FROM event_model WHERE adm = :adm",
+            nativeQuery = true)
+    public List<EventModel> findEventsWithAdm(@Param("adm") String adm);
+
 }

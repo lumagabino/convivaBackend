@@ -8,7 +8,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ItemRepository extends JpaRepository<ItemModel, Long> {
-    @Query(value = "SELECT * FROM item_model WHERE eventId = :eventId;",
+
+    @Query(value = "SELECT * FROM item_model WHERE event_id = :event_id",
             nativeQuery = true)
-    public List<ItemModel> findItemsWithEventId(@Param("eventId") long eventId);
+    public List<ItemModel> findItemsWithEventId(@Param("event_id") long event_id);
 }

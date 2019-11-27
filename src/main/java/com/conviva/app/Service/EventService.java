@@ -17,6 +17,11 @@ public class EventService {
     @Autowired
     EventRepository eventRepository; // connects to the repository
 
+    // find all events of one adm
+    public List<EventModel> findEventsFromAdm(String adm) {
+        return eventRepository.findEventsWithAdm(adm);
+    }
+
     // Find event through id
     public EventModel findSectorById(long id) {
         return eventRepository.getOne(id);
