@@ -25,11 +25,11 @@ public class ProfileController {
     }
 
     // GET profile by email
-    @RequestMapping(method = RequestMethod.GET, path = {"/{email}"})
+    @RequestMapping(method = RequestMethod.GET, path = {"/{id}"})
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
-    public Optional<ProfileModel> getProfileByEmail(@PathVariable("email") String email) {
-        return profileService.findProfileByEmail(email);
+    public Optional<ProfileModel> getProfileById(@PathVariable("id") long id) {
+        return profileService.findProfileById(id);
     }
 
     // POST
@@ -41,9 +41,10 @@ public class ProfileController {
 
     //GET - Login method
     @RequestMapping(method = RequestMethod.GET, path = {"/{email}/{password}"})
-    @ResponseStatus(code = HttpStatus.OK, reason = "User logged")
-    public void login(@PathVariable("email") String email, @PathVariable("password") String password) {
-        profileService.login(email, password);
+    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseBody
+    public Optional<ProfileModel> login(@PathVariable("email") String email, @PathVariable("password") String password) {
+        return profileService.login(email, password);
     }
 
     // PUT

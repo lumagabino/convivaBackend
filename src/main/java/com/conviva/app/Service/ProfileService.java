@@ -19,8 +19,8 @@ public class ProfileService {
     ProfileRepository profileRepository;
 
     // Find profile through email
-    public Optional<ProfileModel> findProfileByEmail(String email) {
-        Optional<ProfileModel> profileOptional = profileRepository.findOneByEmail(email);
+    public Optional<ProfileModel> findProfileById(long id) {
+        Optional<ProfileModel> profileOptional = profileRepository.findById(id);
         if (profileOptional.isEmpty()){
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Email not found"
@@ -52,7 +52,7 @@ public class ProfileService {
 
     // Login
     @Transactional
-    public void login(String email, String password) {
+    public Optional<ProfileModel> login(String email, String password) {
         Optional<ProfileModel> profileOptional = profileRepository.findOneByEmail(email);
 
         if (profileOptional != null){
@@ -64,6 +64,7 @@ public class ProfileService {
             }
         }
 
+        return profileOptional;
     }
 
     // Edit profile
