@@ -31,7 +31,7 @@ public class EventModel {
     private String justification;
 
     @Column(name = "date", nullable = false)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss") // defines the json pattern so that it only accepts date strings
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm") // defines the json pattern so that it only accepts date strings
     private Date date;
 
     @Column(name = "complaint", nullable = false)
