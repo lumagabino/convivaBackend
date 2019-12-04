@@ -18,9 +18,20 @@ public class ProfileService {
     @Autowired
     ProfileRepository profileRepository;
 
-    // Find profile through email
+    // Find profile through id
     public Optional<ProfileModel> findProfileById(long id) {
         Optional<ProfileModel> profileOptional = profileRepository.findById(id);
+        if (profileOptional.isEmpty()){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "ID not found"
+            );
+        }
+        return profileOptional;
+    }
+
+    // Find profile through email
+    public Optional<ProfileModel> findProfileByEmail(String email) {
+        Optional<ProfileModel> profileOptional = profileRepository.findOneByEmail(email);
         if (profileOptional.isEmpty()){
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Email not found"

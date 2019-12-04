@@ -25,10 +25,18 @@ public class ProfileController {
     }
 
     // GET profile by email
-    @RequestMapping(method = RequestMethod.GET, path = {"/{id}"})
+    @RequestMapping(path = "/email", method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
-    public Optional<ProfileModel> getProfileById(@PathVariable("id") long id) {
+    public Optional<ProfileModel> getProfileByEmail(@RequestParam("email") String email) {
+        return profileService.findProfileByEmail(email);
+    }
+
+    // GET profile by id
+    @RequestMapping(path = "/id", method = RequestMethod.GET)
+    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseBody
+    public Optional<ProfileModel> getProfileById(@RequestParam("id") long id) {
         return profileService.findProfileById(id);
     }
 
