@@ -41,6 +41,8 @@ public interface EventRepository extends JpaRepository<EventModel, Long> {
 //            "\t\t\t  JUSTIFICATION text, \n" +
 //            "\t\t\t  LATITUDE double precision, \n" +
 //            "\t\t\t  LONGITUDE double precision, \n" +
+//            "\t\t\t  ITEM text, \n" +
+//            "\t\t\t  PEOPLE text, \n" +
 //            "\t\t\t  NAME text) \n" +
 //            "AS \n" +
 //            "\t $$ \n" +

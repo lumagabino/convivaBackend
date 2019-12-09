@@ -46,6 +46,12 @@ public class EventModel {
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 
+    @Column(name = "item", nullable = false)
+    private String item;
+
+    @Column(name = "people", nullable = false)
+    private String people;
+
     // Instantiates default class constructor so that it is not discarded in case we add customized class initializers
     public EventModel() {
     }
@@ -120,6 +126,22 @@ public class EventModel {
     public Double  getLongitude() { return longitude; }
     public void setLongitude(Double longitude) { this.longitude = longitude; }
 
+    public String getItem() {
+        return item;
+    }
+
+    public void setItens(String item) {
+        this.item = item;
+    }
+
+    public String getPeople() {
+        return people;
+    }
+
+    public void setPeople(String people) {
+        this.people = people;
+    }
+
     @Override
     public String toString() {
         return "EventModel{" +
@@ -133,7 +155,9 @@ public class EventModel {
                 ", complaint=" + complaint + '\'' +
                 ", adm='" + adm + '\'' +
                 ", latitude=" + latitude + '\'' +
-                ", longitude=" + longitude +
+                ", longitude=" + longitude + '\'' +
+                ", item=" + item + '\'' +
+                ", people=" + people +
                 '}';
     }
 }
