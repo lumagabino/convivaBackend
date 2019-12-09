@@ -47,7 +47,7 @@ public interface EventRepository extends JpaRepository<EventModel, Long> {
 //            "AS \n" +
 //            "\t $$ \n" +
 //            "\t SELECT ID, ADDRESS, ADM, COMPLAINT, COST, DATE, \n" +
-//            "\t\t\t\t DESCRIPTION, JUSTIFICATION, LATITUDE, LONGITUDE, NAME \n" +
+//            "\t\t\t\t DESCRIPTION, JUSTIFICATION, LATITUDE, LONGITUDE, ITEM, PEOPLE, NAME \n" +
 //            "\t FROM event_model \n" +
 //            "\t WHERE ((point(LONGITUDE, LATITUDE) <@> point($1, $2)) * 1.61) < $3 \n" +
 //            "\t $$ \n" +
@@ -56,3 +56,14 @@ public interface EventRepository extends JpaRepository<EventModel, Long> {
 //
 // To test on SQL, run
 // SELECT * FROM findEventsInRegion(30, 20, 1000) ORDER BY date;
+
+
+//
+//            CREATE OR REPLACE FUNCTION findEventsInRegion(profileLongitude double precision, profileLatitude double precision, profileRadius double precision)
+//
+//            RETURNS TABLE (ID bigint, ADDRESS text, ADM bigint, COMPLAINT integer, COST integer, DATE timestamp without time zone, DESCRIPTION text, JUSTIFICATION text, LATITUDE double precision, LONGITUDE double precision, ITEM text, PEOPLE text, NAME text)
+//            AS $$ SELECT ID, ADDRESS, ADM, COMPLAINT, COST, DATE, DESCRIPTION, JUSTIFICATION, LATITUDE, LONGITUDE, ITEM, PEOPLE, NAME
+//            FROM event_model
+//            WHERE ((point(LONGITUDE, LATITUDE) <@> point($1, $2)) * 1.61) < $3
+//            $$
+//            LANGUAGE SQL;
